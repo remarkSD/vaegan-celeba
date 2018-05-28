@@ -241,7 +241,7 @@ if __name__ == '__main__':
         print("MIN", np.min(out_random))
 
         # Put samples in grid
-        fig = np.zeros((64*5,64*5,3))
+        fig = np.zeros((64*5,64*5,3), dtype=np.uint8)
         for k1 in range (5):
             for k2 in range (5):
                 fig[64*k2:64*(k2+1),64*k1:64*(k1+1),:] = out_random[k1*5+k2]
@@ -252,6 +252,9 @@ if __name__ == '__main__':
         # Write samples
         out_filename = 'gan_checkpoints/gan_out.jpg'
         cv2.imwrite(out_filename, fig)
+        cv2.imshow('samples from noise', fig)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
         #print(vae)
 
     '''
