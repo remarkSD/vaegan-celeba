@@ -1,6 +1,8 @@
 # vaegan-celeba
 This is a keras implementation of the paper "Autoencoding beyond pixels using a learned similarity metric" by Larsen, A., et al.
 
+Link to implementation documentation: https://docs.google.com/presentation/d/1_i0gV0_QhC84PsnBj4jPq4H6qS7n2vRv_pGFt8ZQQmE/edit?usp=sharing
+
 VAEGAN Model
 
 ![](imgs/vaegan_model.png)
