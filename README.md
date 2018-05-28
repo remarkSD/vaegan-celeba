@@ -12,6 +12,8 @@ VAEGAN Model
  - numpy
 
 Training:
+ - vaegan-celeba.py was used to train the VAEGAN model.
+ - vaegan-loader.py is used to produce images from a trained vaegan model.
  - train-celeba.py was used to train the VAE model.
  - gan-celeba.py was used to train the GAN model.
  - add "-w" to load weights (e.g. python train-celeba.py -w vae-model.h5)
