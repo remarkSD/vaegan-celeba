@@ -192,64 +192,68 @@ if __name__ == '__main__':
         cv2.waitKey(0)
         cv2.destroyAllWindows()
     '''
-    #print(vae)
-    z_sample = np.random.uniform(size=(25,z_dim), low=-1.0, high=1.0)
-    z_sample = np.random.normal(size=(num_outputs,z_dim))
-    out_random = vaegan_decoder.predict(z_sample)
-    # Unnormalize samples
-    out_random = (out_random + 1)*127.5
-    out_random = out_random.astype(np.uint8)
-    print(out_random.shape  )
-    print("MAX", np.max(out_random))
-    print("MIN", np.min(out_random))
+    while True:
+        #print(vae)
+        z_sample = np.random.uniform(size=(25,z_dim), low=-1.0, high=1.0)
+        z_sample = np.random.normal(size=(num_outputs,z_dim))
+        out_random = vaegan_decoder.predict(z_sample)
+        # Unnormalize samples
+        out_random = (out_random + 1)*127.5
+        out_random = out_random.astype(np.uint8)
+        print(out_random.shape  )
+        print("MAX", np.max(out_random))
+        print("MIN", np.min(out_random))
 
-    # Put samples in grid
-    fig = np.zeros((64*5,64*5,3))
-    for k1 in range (5):
-        for k2 in range (5):
-            fig[64*k2:64*(k2+1),64*k1:64*(k1+1),:] = out_random[k1*5+k2]
-    #cv2.imshow("image",out_random[0])
-    #cv2.waitKey(0)
-    #cv2.destroyAllWindows()
+        # Put samples in grid
+        fig = np.zeros((64*5,64*5,3))
+        for k1 in range (5):
+            for k2 in range (5):
+                fig[64*k2:64*(k2+1),64*k1:64*(k1+1),:] = out_random[k1*5+k2]
+        #cv2.imshow("image",out_random[0])
+        #cv2.waitKey(0)
+        #cv2.destroyAllWindows()
 
-    # Write samples
-    out_filename = 'vae_images/out.jpg'
-    cv2.imwrite(out_filename, fig)
+        # Write samples
+        out_filename = 'vae_images/out.jpg'
+        cv2.imwrite(out_filename, fig)
 
 
-    some_gen = celeb_loader(batch_size=25,
-                            dir=dir,
-                            randomize=True,
-                            height=image_size,
-                            width=image_size,
-                            norm=True)
+        some_gen = celeb_loader(batch_size=25,
+                                dir=dir,
+                                randomize=True,
+                                height=image_size,
+                                width=image_size,
+                                norm=True)
 
-    data, _ = next(some_gen)
+        data, _ = next(some_gen)
 
-    out_enc = vaegan_encoder.predict(data)
-    print("MAX", np.max(out_enc))
-    print("MIN", np.min(out_enc))
-    #out = vaegan_decoder.predict(out_enc[2])
+        out_enc = vaegan_encoder.predict(data)
+        print("MAX", np.max(out_enc))
+        print("MIN", np.min(out_enc))
+        #out = vaegan_decoder.predict(out_enc[2])
 
-    out = vae.predict(data)
-    out = (out + 1)*127.5
-    out = out.astype(np.uint8)
-    print("data", data.shape)
-    print("out", out.shape)
+        out = vae.predict(data)
+        out = (out + 1)*127.5
+        out = out.astype(np.uint8)
+        print("data", data.shape)
+        print("out", out.shape)
 
-    # Put samples in grid
-    fig = np.zeros((64*5,64*5*2,3))
-    for k1 in range (5):
-        for k2 in range (5):
-            fig[64*k2:64*(k2+1),64*k1:64*(k1+1),:] = out[k1*5+k2]
-            fig[64*k2:64*(k2+1),64*(k1+5):64*(k1+1+5),:] = ((data[k1*5+k2] + 1)*127.5).astype(np.uint8)
-    #cv2.imshow("image",out_random[0])
-    #cv2.waitKey(0)
-    #cv2.destroyAllWindows()
+        # Put samples in grid
+        fig = np.zeros((64*5,64*5*2,3), dtype=np.uint8)
+        for k1 in range (5):
+            for k2 in range (5):
+                fig[64*k2:64*(k2+1),64*k1:64*(k1+1),:] = out[k1*5+k2]
+                fig[64*k2:64*(k2+1),64*(k1+5):64*(k1+1+5),:] = ((data[k1*5+k2] + 1)*127.5).astype(np.uint8)
+        #cv2.imshow("image",out_random[0])
+        #cv2.waitKey(0)
+        #cv2.destroyAllWindows()
 
-    # Write samples
-    out_filename = 'vae_images/ae_out.jpg'
-    cv2.imwrite(out_filename, fig)
+        # Write samples
+        out_filename = 'vae_images/ae_out.jpg'
+        cv2.imwrite(out_filename, fig)
+        cv2.imshow('autoencoder', fig)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
     '''
     data = (data+1)*127.5
     data = data.astype(np.uint8)
