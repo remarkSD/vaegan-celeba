@@ -231,6 +231,27 @@ if __name__ == '__main__':
     if args.weights:
         #print("loading weights",args.weights)
         gan.load_weights(args.weights)
+        # Predict Sample
+        z_sample = np.random.uniform(size=(25,z_dim), low=-1.0, high=1.0)
+        out_random = vaegan_decoder.predict(z_sample)
+        # Unnormalize samples
+        out_random = (out_random + 1)*127.5
+        out_random = out_random.astype(np.uint8)
+        print("MAX", np.max(out_random))
+        print("MIN", np.min(out_random))
+
+        # Put samples in grid
+        fig = np.zeros((64*5,64*5,3))
+        for k1 in range (5):
+            for k2 in range (5):
+                fig[64*k2:64*(k2+1),64*k1:64*(k1+1),:] = out_random[k1*5+k2]
+        #cv2.imshow("image",out_random[0])
+        #cv2.waitKey(0)
+        #cv2.destroyAllWindows()
+
+        # Write samples
+        out_filename = 'gan_checkpoints/gan_out.jpg'
+        cv2.imwrite(out_filename, fig)
         #print(vae)
 
     '''

@@ -181,6 +181,7 @@ if __name__ == '__main__':
         vae.save_weights('vae_celebA_2048lat.h5')
 
     num_outputs = 25
+    '''
     #z_sample = np.random.uniform(size=(num_outputs,z_dim), low=-3.0, high=3.0)
     z_sample = np.random.normal(size=(num_outputs,z_dim))
     out_random = vaegan_decoder.predict(z_sample)
@@ -190,7 +191,7 @@ if __name__ == '__main__':
         cv2.imshow("image from noise",out_random[i])
         cv2.waitKey(0)
         cv2.destroyAllWindows()
-
+    '''
     #print(vae)
     z_sample = np.random.uniform(size=(25,z_dim), low=-1.0, high=1.0)
     z_sample = np.random.normal(size=(num_outputs,z_dim))
@@ -235,6 +236,20 @@ if __name__ == '__main__':
     out = out.astype(np.uint8)
     print("data", data.shape)
     print("out", out.shape)
+
+    # Put samples in grid
+    fig = np.zeros((64*5,64*5*2,3))
+    for k1 in range (5):
+        for k2 in range (5):
+            fig[64*k2:64*(k2+1),64*k1:64*(k1+1),:] = out[k1*5+k2]
+            fig[64*k2:64*(k2+1),64*(k1+5):64*(k1+1+5),:] = ((data[k1*5+k2] + 1)*127.5).astype(np.uint8)
+    #cv2.imshow("image",out_random[0])
+    #cv2.waitKey(0)
+    #cv2.destroyAllWindows()
+
+    # Write samples
+    out_filename = 'vae_images/ae_out.jpg'
+    cv2.imwrite(out_filename, fig)
     '''
     data = (data+1)*127.5
     data = data.astype(np.uint8)
