@@ -12,12 +12,17 @@ Training:
  - add "-w" to load weights (e.g. python train-celeba.py -w vae-model.h5)
 
 Results:
-VAE
+
+VAE:
+
 Images from noise:
-![picture](img/out.jpg)
+
+![](img/out.jpg)
 
 Autoencoder:
-![picture](imgs/ae_out.jpg)
+
+![](imgs/ae_out.jpg)
 
 GAN
-![picture](imgs/gan_out.jpg)
+
+![](imgs/gan_out.jpg)
