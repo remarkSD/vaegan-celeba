@@ -148,9 +148,9 @@ if __name__ == '__main__':
 
 
     #decoder_model.load_weights(args.weights)
-    i = 8
-    j = 1000
-    folder = 'vaegan_cps_new10_lr04'
+    i = 5
+    j = 1800
+    folder = 'vaegan_out'
     dec_model_save_path = folder + '/dec_vaegan-model-'+'{:05}'.format(i)+'-'+'{:05}'.format(j)+'.h5'
     enc_model_save_path = folder + '/enc_vaegan-model-'+'{:05}'.format(i)+'-'+'{:05}'.format(j)+'.h5'
     disc_model_save_path = folder + '/disc_vaegan-model-'+'{:05}'.format(i)+'-'+'{:05}'.format(j)+'.h5'
